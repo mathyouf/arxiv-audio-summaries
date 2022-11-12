@@ -3,16 +3,21 @@
 # conda activate pyannote
 import os
 from pyannote.audio import Pipeline
-from dotenv import load_dotenv
+
+# MP3 to WAV: ffmpeg -i input.mp3 output.wav 
 
 def diarize_mp3(audio_file="./data/audio/part1.mp3", output_dir="./data/audio"):
 
-    load_dotenv()
+    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1") ## Broken here, model not found
 
-    HF_TOKEN = os.getenv('HF_TOKEN')
+    # Check if audio file isn't WAV, convert to WAV
+    if audio_file[-3:] != "wav":
+        audio_file = audio_file[:-3] + "wav"
+        os.system("ffmpeg -i " + audio_file + " " + audio_file)
 
-    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1",
-                                        use_auth_token=HF_TOKEN)
+    # Check if audio files are greater than 200MB, split into 200MB chunks
+    if os.path.getsize(audio_file) > 200000000:
+        os.system("ffmpeg -i " + audio_file + " -f segment -segment_time 1000 -c copy " + output_dir + "/%03d.wav")
 
     # apply the pipeline to an audio file
     diarization = pipeline(audio_file, num_speakers=2)
