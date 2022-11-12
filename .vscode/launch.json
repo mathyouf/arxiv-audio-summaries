@@ -16,7 +16,7 @@
             "name": "Diarization",
             "type": "python",
             "request": "launch",
-            "program": "./data/pyanote-speaker-diarization.py",
+            "program": "./data/test.py",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "justMyCode": true
