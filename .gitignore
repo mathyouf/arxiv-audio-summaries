@@ -2,3 +2,6 @@
 **/*.mp3
 **/*.wav
 **/*.pyc
+**/*.rttm
+data/__pycache__/speakerDiarization.cpython-38.pyc
+**/**__pycache__**
