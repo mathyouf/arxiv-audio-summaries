@@ -20,6 +20,15 @@
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Tortoise",
+            "type": "python",
+            "request": "launch",
+            "program": "./train/text2Audio.py",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
     ]
 }
