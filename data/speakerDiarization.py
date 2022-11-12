@@ -1,5 +1,7 @@
-# https://github.com/pyannote/pyannote-audio
 # https://huggingface.co/pyannote/speaker-diarization
+# 1. visit hf.co/pyannote/speaker-diarization and hf.co/pyannote/segmentation and accept user conditions (only if requested)
+# 2. visit hf.co/settings/tokens to create an access token (only if you had to go through 1.)
+# https://github.com/pyannote/pyannote-audio
 # conda activate pyannote
 import os
 from pyannote.audio import Pipeline
@@ -8,7 +10,7 @@ from pyannote.audio import Pipeline
 
 def diarize_mp3(audio_file="./data/audio/part1.mp3", output_dir="./data/audio"):
 
-    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1") ## Broken here, model not found
+    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization") ## Broken here, model not found
 
     # Check if audio file isn't WAV, convert to WAV
     if audio_file[-3:] != "wav":
