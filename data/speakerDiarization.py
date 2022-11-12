@@ -6,9 +6,17 @@
 import os
 from pyannote.audio import Pipeline
 
-def splitAudioByRTTM(rttm_file):
+def splitAudioByRTTM(rttm_file, audio_file, output_dir="./data/audio"):
     # Read RTTM file
-    
+    with open(rttm_file, "r") as f:
+        lines = f.readlines()
+    # Split audio file by RTTM file
+    for line in lines:
+        line = line.split(" ")
+        start = line[3]
+        end = line[4]
+        speaker = line[7]
+        os.system("ffmpeg -i " + audio_file + " -ss " + start + " -to " + end + " -c copy " + output_dir + "/speaker_" + speaker + ".wav")
 
 def diarize_mp3(audio_file="./data/audio/part1.mp3", num_speakers=2, output_dir="./data/audio"):
 
@@ -37,4 +45,4 @@ def diarize_mp3(audio_file="./data/audio/part1.mp3", num_speakers=2, output_dir=
     with open(output_file, "w") as rttm:
         diarization.write_rttm(rttm)
 
-    return output_file
+    splitAudioByRTTM(output_file, audio_file, output_dir)
